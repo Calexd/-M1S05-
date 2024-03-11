@@ -21,7 +21,7 @@ function createItensSidebar() {
         itemCard.id = item.code
     
     let imgCard = document.createElement('img')
-        imgCard.classList.add('img-sidebar-cardz')
+        imgCard.classList.add('img-sidebar-card')
         imgCard.src = item.image
         imgCard.alt = item.name
         itemCard.appendChild(imgCard)
@@ -31,7 +31,6 @@ function createItensSidebar() {
     infoItem.innerHTML = `
         <h3>${item.name}</h3>
         <p>Código: ${item.code}</p>
-        <p>Preço: ${item.price}</p>
     `;
     itemCard.appendChild(infoItem)
     containerCards.appendChild(itemCard)

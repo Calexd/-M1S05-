@@ -91,6 +91,11 @@ function consultarTotal() {
     return total
 }
 
+function consultqtq() {
+    qtqItems = carrinho.length
+    return qtqItems
+}
+
 let consultPriceButton = document.getElementById('consult-price-button')
 consultPriceButton.addEventListener('click', () => {
     let textPrice = document.getElementById('valorCompraButton')
@@ -100,6 +105,7 @@ consultPriceButton.addEventListener('click', () => {
         textPrice.innerHTML = 'Carrinho Vazio' 
     }
 })
+
 
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -189,7 +195,9 @@ function productView(item) {
         // let total = consultarTotal()
         addCart(item)
         let priceDinamic = document.querySelector('.price-dinamic')
-        priceDinamic.innerHTML = 'R$' + consultarTotal()
+        let qtqDinamic = document.querySelector('.qtd-dinamic')
+        qtqDinamic.innerHTML = 'Quantidade de produtos no carrinho: ' + consultqtq()
+        priceDinamic.innerHTML = 'Valor total: R$' + consultarTotal()
     })
 }
 

@@ -194,7 +194,7 @@ function productView(item) {
 }
 
 
- // função para addicionar ao carinho
+ // função para addicionar ao carinho..
 
 
 

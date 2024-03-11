@@ -69,105 +69,109 @@ let items = [
         image: 'assets/PRD010.jpg',
         description: 'Carregador sem fio Qi para dispositivos compatíveis com carregamento rápido.'
     }
-];
+]
 
 
-let carrinho = [];
+let carrinho = []
 
 function addCart(item) {
     let product = {
         name: item.name,
         price: item.price
-    };
-    carrinho.push(product);
+    }
+    carrinho.push(product)
     console.log(carrinho)
 }
 
 function consultarTotal() {
-    let total = 0;
+    let total = 0
     carrinho.forEach(item => {
         total += item.price
     })
-    return total;
+    return total
 }
 
-let consultPriceButton = document.getElementById('consult-price-button');
+let consultPriceButton = document.getElementById('consult-price-button')
 consultPriceButton.addEventListener('click', () => {
-    let textPrice = document.getElementById('valorCompraButton');
-    textPrice.innerHTML = 'R$' + consultarTotal(); 
-});
+    let textPrice = document.getElementById('valorCompraButton')
+    if (consultarTotal() > 0) {
+        textPrice.innerHTML = 'R$' + consultarTotal()
+    } else {
+        textPrice.innerHTML = 'Carrinho Vazio' 
+    }
+})
 
 
 document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('shearch-input').addEventListener('keyup', function () {
-        let searchInput = document.getElementById('shearch-input').value.trim().toLowerCase();
-        let reviewProductBox = document.querySelector('.sidebar-products');
-        reviewProductBox.innerHTML = '';
+        let searchInput = document.getElementById('shearch-input').value.trim().toLowerCase()
+        let reviewProductBox = document.querySelector('.sidebar-products')
+        reviewProductBox.innerHTML = ''
 
-        if (searchInput.length === 0) return;
+        if (searchInput.length === 0) return
 
         let filteredProducts = items.filter(item => {
-            return item.name.toLowerCase().includes(searchInput) || item.code.toLowerCase().includes(searchInput);
-        });
+            return item.name.toLowerCase().includes(searchInput) || item.code.toLowerCase().includes(searchInput)
+        })
 
-        renderFilteredProducts(filteredProducts);
-    });
-});
+        renderFilteredProducts(filteredProducts)
+    })
+})
 
 function renderFilteredProducts(filteredProducts) {
-    let reviewProductBox = document.querySelector('.sidebar-products');
-    reviewProductBox.innerHTML = '';
+    let reviewProductBox = document.querySelector('.sidebar-products')
+    reviewProductBox.innerHTML = ''
 
     filteredProducts.forEach(item => {
-        let itemCard = document.createElement('div');
-        itemCard.classList.add('item-card');
+        let itemCard = document.createElement('div')
+        itemCard.classList.add('item-card')
 
-        let imgCard = document.createElement('img');
-        imgCard.classList.add('img-sidebar-card');
-        imgCard.src = item.image;
-        imgCard.alt = item.name;
-        itemCard.appendChild(imgCard);
+        let imgCard = document.createElement('img')
+        imgCard.classList.add('img-sidebar-card')
+        imgCard.src = item.image
+        imgCard.alt = item.name
+        itemCard.appendChild(imgCard)
 
-        let infoItem = document.createElement('div');
-        infoItem.classList.add('info-item');
+        let infoItem = document.createElement('div')
+        infoItem.classList.add('info-item')
         infoItem.innerHTML = `
             <h3>${item.name}</h3>
-            <p>Código: ${item.code}</p> `;
-        itemCard.appendChild(infoItem);
-        reviewProductBox.appendChild(itemCard);
+            <p>Código: ${item.code}</p> `
+        itemCard.appendChild(infoItem)
+        reviewProductBox.appendChild(itemCard)
 
         let buttonSelectItem = document.createElement('button')
         buttonSelectItem.classList.add('buttons-style')
         buttonSelectItem.innerText = 'Selecionar Produto'
         infoItem.appendChild(buttonSelectItem)
         buttonSelectItem.addEventListener('click', function () {
-            productView(item);
+            productView(item)
         })
-    });
+    })
 }
 
 function productView(item) {
     let boxFullProduct = document.querySelector('.review-product')
-    boxFullProduct.innerHTML = '';
+    boxFullProduct.innerHTML = ''
 
-    let itemCard = document.createElement('div');
-    itemCard.classList.add('product-card-full');
+    let itemCard = document.createElement('div')
+    itemCard.classList.add('product-card-full')
 
-    let imgCard = document.createElement('img');
-    imgCard.classList.add('product-card-full-img');
-    imgCard.src = item.image;
-    imgCard.alt = item.name;
-    itemCard.appendChild(imgCard);
+    let imgCard = document.createElement('img')
+    imgCard.classList.add('product-card-full-img')
+    imgCard.src = item.image
+    imgCard.alt = item.name
+    itemCard.appendChild(imgCard)
 
-    let infoItem = document.createElement('div');
-    infoItem.classList.add('info-item');
+    let infoItem = document.createElement('div')
+    infoItem.classList.add('info-item')
     infoItem.innerHTML = `
             <h3>${item.name}</h3>
             <p><b>Código:</b> ${item.code}</p>
             <p><b>Descrição:</b> ${item.description}
-            <p><b>Preço:</b> <span id="product-price">******</span></p>`;
-    itemCard.appendChild(infoItem);
-    boxFullProduct.appendChild(itemCard);
+            <p><b>Preço:</b> <span id="product-price">******</span></p>`
+    itemCard.appendChild(infoItem)
+    boxFullProduct.appendChild(itemCard)
 
     let buttonConsultar = document.createElement('button')
     buttonConsultar.classList.add('buttons-style')
@@ -181,8 +185,11 @@ function productView(item) {
     buttonAddCart.classList.add('buttons-style')
     buttonAddCart.innerText = 'Comprar'
     itemCard.appendChild(buttonAddCart)
-    buttonAddCart.addEventListener('click', function () {
-        addCart(item);
+    buttonAddCart.addEventListener('click', () => {
+        // let total = consultarTotal()
+        addCart(item)
+        let priceDinamic = document.querySelector('.price-dinamic')
+        priceDinamic.innerHTML = 'R$' + consultarTotal()
     })
 }
 
@@ -190,11 +197,4 @@ function productView(item) {
  // função para addicionar ao carinho
 
 
-
-
-
-
-
-
-//resolver problema de que en el sidebar aparezcan los items antes de buscar incluso
 

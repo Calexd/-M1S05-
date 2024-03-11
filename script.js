@@ -12,7 +12,6 @@ let items = [
 ];
 
 
-
 function createItensSidebar() {
     let containerCards = document.querySelector('.sidebar-products')
     items.forEach(item => {
@@ -39,6 +38,39 @@ function createItensSidebar() {
     })
 }
 
-
-
 document.addEventListener('DOMContentLoaded', createItensSidebar);
+
+document.getElementById('search-input').addEventListener('keyup', shearchProducts);
+
+function shearchProducts (){
+    let shearchInput = document.getElementById('search-input').value.trim().toLowerCase();
+    let reviewProductBox = document.querySelector('.review-product')
+    
+    if (shearchInput.length === 0) return;
+
+    let filteredProducts = items.filter(item => {
+        return item.name.toLowerCase().includes(shearchInput) || item.code.toLowerCase().includes(shearchInput);
+    });
+
+    reviewProductBox.innerHTML = '';
+
+    filteredProducts.forEach(item => {
+        let itemCard = document.createElement('div');
+        itemCard.classList.add('item-card');
+
+        let imgCard = document.createElement('img');
+        imgCard.classList.add('img-sidebar-card');
+        imgCard.src = item.image;
+        imgCard.alt = item.name;
+        itemCard.appendChild(imgCard);   
+
+        let infoItem = document.createElement('div');
+        infoItem.classList.add('info-item');
+        infoItem.innerHTML = `
+            <h3>${item.name}</h3>
+            <p>Código: ${item.code}</p> `;
+        itemCard.appendChild(infoItem);
+        reviewProductBox.appendChild(itemCard);
+
+});
+}

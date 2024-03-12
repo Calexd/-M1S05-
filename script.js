@@ -80,16 +80,10 @@ function addCart(item) {
         price: item.price
     }
     carrinho.push(product)
+    localStorage.setItem('carrinho', JSON.stringify(carrinho))
     console.log(carrinho)
 }
 
-function consultarTotal() {
-    let total = 0
-    carrinho.forEach(item => {
-        total += item.price
-    })
-    return total
-}
 
 function consultqtq() {
     qtqItems = carrinho.length
@@ -201,8 +195,37 @@ function productView(item) {
     })
 }
 
+function localStorageCarrinho() {
+    let carrinhoStorage = localStorage.getItem('carrinho')
+    if (carrinho) {
+        carrinho = JSON.parse(carrinhoStorage)
+    }
+}
 
- // função para addicionar ao carinho..
+function consultarTotal() {
+    let total = 0
+    carrinho.forEach(item => {
+        total += item.price
+    })
+    return total
+}
+
+
+document.addEventListener('DOMContentLoaded', function(){
+    localStorageCarrinho()
+    updateInfo()
+})
+
+function updateInfo() {
+    let qtqDinamic = document.querySelector('.qtd-dinamic');
+    let priceDinamic = document.querySelector('.price-dinamic');
+    qtqDinamic.innerHTML = 'Quantidade de produtos no carrinho: ' + consultqtq();
+    priceDinamic.innerHTML = 'Valor total: R$' + consultarTotal()
+}
+
+
+
+ // função para addicionar ao carinho:
 
 
 
